@@ -16,7 +16,8 @@ export const useCalculator = () => {
 
   const lastOperation = useRef<Operators>();
   const clean = () => {
-    setNumber('0')
+    setNumber('0');
+    setPreNumber('0');
   }
 
   const deleteOperation = () => {
@@ -80,28 +81,60 @@ export const useCalculator = () => {
     setNumber('0')
   }
 
-  // const divideOperation = () =>{
-  //   setLastNumnber();
-  //   lastOperation.current =Operators.divide;
-  // }
-  // const multiplyOperation = () =>{
-  //   setLastNumnber();
-  //   lastOperation.current =Operators.multiply;
-  // }
-  // const divideOperation = () =>{
-  //   setLastNumnber();
-  //   lastOperation.current =Operators.divide;
-  // }
-  // const divideOperation = () =>{
-  //   setLastNumnber();
-  //   lastOperation.current =Operators.divide;
-  // }
+  const divideOperation = () => {
+    setLastNumnber();
+    lastOperation.current = Operators.divide;
+  }
+  const multiplyOperation = () => {
+    setLastNumnber();
+    lastOperation.current = Operators.multiply;
+  }
+  const subtractOperation = () => {
+    setLastNumnber();
+    lastOperation.current = Operators.subtract;
+  }
+  const addOperation = () => {
+    setLastNumnber();
+    lastOperation.current = Operators.add;
+  };
+
+  const calculateResult = () => {
+    const num1 = Number(number);
+    const num2 = Number(PreNumber);
+
+    switch (lastOperation.current) {
+      case Operators.add:
+        setNumber(`${num1 + num2}`)
+        break;
+      case Operators.subtract:
+        setNumber(`${num2 - num1}`)
+        break;
+      case Operators.multiply:
+        setNumber(`${num1 * num2}`)
+        break;
+      case Operators.divide:
+        setNumber(`${num2 / num1}`)
+        break;
+
+      default:
+        throw new Error('Operation not found');
+    }
+    setPreNumber('0');
+
+  }
   return {
     number,
+    PreNumber,
     buildNumber,
     toogleSign,
     clean,
-    deleteOperation
+    deleteOperation,
+    divideOperation,
+    multiplyOperation,
+    subtractOperation,
+    addOperation,
+    calculateResult
+
     //miPropertis
   }
 }
