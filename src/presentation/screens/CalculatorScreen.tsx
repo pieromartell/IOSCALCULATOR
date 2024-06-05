@@ -11,6 +11,7 @@ const {number,buildNumber,toogleSign,clean,deleteOperation,
     subtractOperation,
     addOperation,
     PreNumber,
+    formula,
     calculateResult,
 
 } = useCalculator();
@@ -21,7 +22,7 @@ const {number,buildNumber,toogleSign,clean,deleteOperation,
             <Text
             adjustsFontSizeToFit
             numberOfLines={1}
-            style={styles.mainResult}>{number}</Text>
+            style={styles.mainResult}>{formula}</Text>
 
             <Text 
             adjustsFontSizeToFit

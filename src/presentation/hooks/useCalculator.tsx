@@ -1,23 +1,40 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 enum Operators {
-  add,
-  subtract,
-  multiply,
-  divide,
+  add = '+',
+  subtract = '-',
+  multiply = 'x',
+  divide = '/',
 }
 
 
 
 export const useCalculator = () => {
 
+  const [formula, setformula] = useState('')
+
   const [PreNumber, setPreNumber] = useState('0');
   const [number, setNumber] = useState('0');
 
   const lastOperation = useRef<Operators>();
+
+
+  useEffect(() => {
+
+    if(lastOperation.current){
+      const firstFormulaPart = formula.split('');
+      setformula(`${firstFormulaPart} ${lastOperation.current} ${number}`)
+    }else{
+      setformula(number);
+    }
+
+  }, [number])
+
   const clean = () => {
     setNumber('0');
     setPreNumber('0');
+    lastOperation.current = undefined;
+    setformula('');
   }
 
   const deleteOperation = () => {
@@ -125,6 +142,7 @@ export const useCalculator = () => {
   return {
     number,
     PreNumber,
+    formula,
     buildNumber,
     toogleSign,
     clean,
